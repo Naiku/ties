@@ -7,14 +7,27 @@ class TIES::Base
   #   :secret_key
   #   :district_number
   def initialize(options)
-    self.api_key, self.secret_key = options[:api_key], options[:secret_key]
-    self.district_number = options[:district_number]
-    self.endpoint = options[:endpoint] || TIES::TEST_ENDPOINT
+    self.api_key, self.secret_key = options["api_key"], options["secret_key"]
+    self.district_number = options["district_number"]
+    self.endpoint = options["endpoint"] || TIES::TEST_ENDPOINT
   end
 
   def send_request(uri, options = {})
-    rsp = request_over_http(options, endpoint, uri)
-    puts rsp.inspect
+    if self.api_key.nil? || self.secret_key.nil? || self.district_number.nil?
+      raise 'not enough data to send request'
+    end
+    result = request_over_http(options, endpoint, uri)
+    if !result
+      raise 'Request to TIES api "%s" failed' % uri
+    end
+    case result.code.to_i
+    when 400
+      return false
+    when 200
+      return JSON.parse(result.body)
+    else
+      raise 'unknown error status code %s for uri "%s"' % [result.code, uri]
+    end
   end
 
   def authentication(http_method, time, request_uri)
@@ -34,7 +47,6 @@ class TIES::Base
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
     http.set_debug_output $stderr
-    puts http.inspect
     request = Net::HTTP::Get.new(uri.request_uri)
     request.initialize_http_header({
       'User-Agent' => 'TIEScloud ruby gem',
@@ -42,7 +54,6 @@ class TIES::Base
       'Authorization' => authentication('GET', time, uri.request_uri),
       'DistrictNumber' => self.district_number.to_s
     })
-    puts request.inspect
-    return http.request(request)
+    http.request(request)
   end
 end

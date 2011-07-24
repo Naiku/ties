@@ -3,7 +3,7 @@ require 'openssl'
 require 'base64'
 require 'cgi'
 require 'uri'
-
+require 'json'
 
 module TIES
   TEST_ENDPOINT = 'https://apitest.tiescloud.net/v1.0'
