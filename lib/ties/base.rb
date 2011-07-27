@@ -1,6 +1,7 @@
 
 class TIES::Base
   attr_accessor :api_key, :secret_key, :endpoint, :district_number
+  attr_accessor :total_pages, :total_count
 
   # options should contain
   #   :api_key
@@ -10,6 +11,16 @@ class TIES::Base
     self.api_key, self.secret_key = options["api_key"], options["secret_key"]
     self.district_number = options["district_number"]
     self.endpoint = options["endpoint"] || TIES::TEST_ENDPOINT
+  end
+
+  def all(options = {})
+    @results = []
+    page = 1
+    begin
+      @results.concat self.get(page, options)
+      page += 1
+    end until self.total_pages <= page
+    @results
   end
 
   def send_request(uri, options = {})
@@ -36,13 +47,15 @@ class TIES::Base
   end
 
   def schools(); @schools ||= TIES::Schools.new(self); end
+  def students(); @students ||= TIES::Students.new(self); end
+  def classes(); @classes ||= TIES::Classes.new(self); end
   def reimbursements(); @reimbursements ||= TIES::MyView::Reimbursements.new(self); end
 
   protected
 
   # For easier testing. You can mock this method with a XML file you're expecting to receive
   def request_over_http(options, endpoint, uri)
-    uri = URI.parse([endpoint, uri].join('/'))
+    uri = URI.parse([endpoint, uri].join('/') + '?' + options.collect{|k,v| "%s=%s" % [k,v]}.join('&'))
 
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true

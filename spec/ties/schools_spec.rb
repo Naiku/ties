@@ -7,7 +7,7 @@ describe TIES::Schools do
   end
   it "should retrieve schools" do
     schools = ties.schools
-    result = schools.get
+    result = schools.get()
     result.should_not be_empty
     result.should be_a(Array)
     schools.total_pages.should_not be_nil
