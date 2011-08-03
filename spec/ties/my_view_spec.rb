@@ -5,6 +5,6 @@ describe TIES::MyView::Reimbursements do
     ties.reimbursements.should be_a(TIES::MyView::Reimbursements)
   end
   it "retrieve reimbursements" do
-    ties.reimbursements.get.inspect
+    ties.reimbursements.get
   end
 end

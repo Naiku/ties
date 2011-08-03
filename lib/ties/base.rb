@@ -48,7 +48,8 @@ class TIES::Base
 
   def schools(); @schools ||= TIES::Schools.new(self); end
   def students(); @students ||= TIES::Students.new(self); end
-  def classes(); @classes ||= TIES::Classes.new(self); end
+  def classes(); @classes ||= TIES::Schedule::Classes.new(self); end
+  def requested_classes(); @requested_classes ||= TIES::Schedule::RequestedClasses.new(self); end
   def reimbursements(); @reimbursements ||= TIES::MyView::Reimbursements.new(self); end
 
   protected
@@ -59,10 +60,12 @@ class TIES::Base
 
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
-    http.set_debug_output $stderr
+#    http.set_debug_output $stderr
     request = Net::HTTP::Get.new(uri.request_uri)
     request.initialize_http_header({
-      'User-Agent' => 'TIEScloud ruby gem',
+      'Accept' => 'application/json',
+      'Content-Type' => 'application/json',
+      'User-Agent' => 'TIEScloud ruby %s' % TIES::VERSION,
       'ties-date' => (time = Time.now).utc.to_s,
       'Authorization' => authentication('GET', time, uri.request_uri),
       'DistrictNumber' => self.district_number.to_s

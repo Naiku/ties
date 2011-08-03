@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "ties"
-  s.version = "0.1"
+  s.version = "0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thomas R. Koll"]
@@ -17,12 +17,16 @@ Gem::Specification.new do |s|
     "README",
     "lib/ties.rb",
     "lib/ties/base.rb",
+    "lib/ties/schedule.rb",
     "lib/ties/my_view.rb",
     "lib/ties/schools.rb",
+    "lib/ties/students.rb",
     "spec/spec_helper.rb",
     "spec/ties/base_spec.rb",
+    "spec/ties/schedule_spec.rb",
     "spec/ties/my_view_spec.rb",
     "spec/ties/schools_spec.rb",
+    "spec/ties/students_spec.rb",
     "spec/ties/ties_spec.rb",
     "ties.gemspec"
     ]

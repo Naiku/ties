@@ -1,5 +1,4 @@
 class TIES::Schools < TIES::Base
-  attr_accessor :total_pages, :total_count
   def initialize(ties)
     @ties = ties
   end
