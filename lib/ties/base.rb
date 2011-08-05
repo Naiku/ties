@@ -19,7 +19,7 @@ class TIES::Base
     begin
       @results.concat self.get(page, options)
       page += 1
-    end until self.total_pages <= page
+    end until self.total_pages.nil? || self.total_pages <= page
     @results
   end
 

@@ -16,7 +16,7 @@ class TIES::Schedule
       @ties = ties
     end
     def get(page = 1, options = {})
-      return false if options["StudentId"].nil?
+      raise 'Missing student id' if options["StudentId"].nil?
       options.merge!({'IsScheduled' => 'true'})
       result = @ties.send_request('Schedule/RequestedClasses/%i' % page, options)
       return [] unless result
