@@ -13,6 +13,16 @@ class TIES::Base
     self.endpoint = options["endpoint"] || TIES::TEST_ENDPOINT
   end
 
+  def each(options = {})
+    page = 1
+    begin
+      self.get(page, options).each do |element|
+        yield(element)
+      end
+      page += 1
+    end until self.total_pages.nil? || self.total_pages <= page
+  end
+
   def all(options = {})
     @results = []
     page = 1
