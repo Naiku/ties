@@ -6,7 +6,7 @@ describe TIES::Base do
       ties.should be_a(TIES::Base)
     end
     it "should have default endpoint" do
-      TIES.new({}).endpoint.should == TIES::TEST_ENDPOINT
+      TIES.new({}).endpoint.should == TIES::ENDPOINT
     end
   end
 end

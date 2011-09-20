@@ -10,7 +10,7 @@ class TIES::Base
   def initialize(options)
     self.api_key, self.secret_key = options["api_key"], options["secret_key"]
     self.district_number = options["district_number"]
-    self.endpoint = options["endpoint"] || TIES::TEST_ENDPOINT
+    self.endpoint = options["endpoint"] || TIES::ENDPOINT
   end
 
   def each(options = {})

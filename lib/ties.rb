@@ -6,7 +6,7 @@ require 'uri'
 require 'json'
 
 module TIES
-  TEST_ENDPOINT = 'https://apitest.tiescloud.net/v1.0'
+  ENDPOINT = 'https://api.tiescloud.net/v1.0'
   VERSION = '0.2'
   def self.new(*options)
     TIES::Base.new(*options)
