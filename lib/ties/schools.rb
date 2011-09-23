@@ -3,6 +3,7 @@ class TIES::Schools < TIES::Base
     @ties = ties
   end
   def get(page = 1, options = {})
+    options.merge!({"DistrictNumber" => @ties.district_number})
     result = @ties.send_request('Schools/%i' % page, options)
     return [] unless result
     self.total_pages = result['TotalPages']
