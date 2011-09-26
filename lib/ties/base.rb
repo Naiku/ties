@@ -58,6 +58,7 @@ class TIES::Base
 
   def schools(); @schools ||= TIES::Schools.new(self); end
   def students(); @students ||= TIES::Students.new(self); end
+  def teachers(); @teachers ||= TIES::Teachers.new(self); end
   def classes(); @classes ||= TIES::Schedule::Classes.new(self); end
   def requested_classes(); @requested_classes ||= TIES::Schedule::RequestedClasses.new(self); end
   def reimbursements(); @reimbursements ||= TIES::MyView::Reimbursements.new(self); end

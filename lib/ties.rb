@@ -16,5 +16,6 @@ end
 require 'ties/base'
 require 'ties/schools'
 require 'ties/students'
+require 'ties/teachers'
 require 'ties/schedule'
 require 'ties/my_view'
