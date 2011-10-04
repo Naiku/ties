@@ -17,7 +17,7 @@ class TIES::Schedule
     end
     def get(page = 1, options = {})
       raise 'Missing student id' if options["StudentId"].nil?
-      options.merge!({'IsScheduled' => 'true'})
+      options.merge!({'ScheduleVersion' => '00'})
       result = @ties.send_request('Schedule/RequestedClasses/%i' % page, options)
       return [] unless result
       self.total_pages = result['TotalPages']
