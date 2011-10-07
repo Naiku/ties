@@ -20,7 +20,7 @@ class TIES::Base
         yield(element)
       end
       page += 1
-    end until self.total_pages.nil? || self.total_pages <= page
+    end until self.total_pages.nil? || self.total_pages+1 == page
   end
 
   def all(options = {})
@@ -29,7 +29,7 @@ class TIES::Base
     begin
       @results.concat self.get(page, options)
       page += 1
-    end until self.total_pages.nil? || self.total_pages <= page
+    end until self.total_pages.nil? || self.total_pages+1 <= page
     @results
   end
 
