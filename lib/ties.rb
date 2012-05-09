@@ -8,6 +8,7 @@ require 'json'
 module TIES
   ENDPOINT = 'https://api.tiescloud.net/v1.0'
   VERSION = '0.2'
+  DEBUG = false
   def self.new(*options)
     TIES::Base.new(*options)
   end

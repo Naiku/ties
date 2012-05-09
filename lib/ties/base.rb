@@ -71,7 +71,9 @@ class TIES::Base
 
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
-#    http.set_debug_output $stderr
+    if TIES::DEBUG
+      http.set_debug_output $stderr
+    end
     request = Net::HTTP::Get.new(uri.request_uri)
     request.initialize_http_header({
       'Accept' => 'application/json',
