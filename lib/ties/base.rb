@@ -79,7 +79,7 @@ class TIES::Base
       'Accept' => 'application/json',
       'Content-Type' => 'application/json',
       'User-Agent' => 'TIEScloud ruby %s' % TIES::VERSION,
-      'ties-date' => (time = Time.now).utc.to_s,
+      'ties-date' => (time = Time.now).utc.to_s(:rfc822),
       'Authorization' => authentication('GET', time, uri.request_uri),
       'DistrictNumber' => self.district_number.to_s
     })
